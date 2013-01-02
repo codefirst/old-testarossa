@@ -34,7 +34,10 @@ end
 
 platform :jruby do
   gem 'puma'
-  gem 'therubyrhino'
+
+  group :production do
+    gem 'therubyrhino'
+  end
 
   group :postgresql do
     gem 'activerecord-jdbcpostgresql-adapter'
