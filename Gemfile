@@ -12,12 +12,33 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :postgresql do
-  gem 'pg'
+platform :ruby do
+  gem 'thin'
+  gem 'therubyracer'
+
+  group :postgresql do
+    gem 'pg'
+  end
+
+  group :test, :development do
+    gem 'sqlite3'
+  end
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails'
 end
 
+platform :jruby do
+  gem 'puma'
+  gem 'therubyrhino'
+
+  group :postgresql do
+    gem 'activerecord-jdbcpostgresql-adapter'
+  end
+
+  group :test, :development do
+    gem 'activerecord-jdbcsqlite3-adapter'
+    gem 'warbler'
+  end
+end
