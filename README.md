@@ -6,7 +6,15 @@ Testarossa
 Developer
 --------------------------------------
 
+running application
+
     $ bundle install --path .bundle --without postgresql
+    $ bundle install rails server
+
+test
+
+    $ bundle exec rake db:migrate RAILS_ENV=test
+    $ bundle exec rspec
 
 License
 ------------------------------
