@@ -14,13 +14,13 @@ end
 
 platform :ruby do
   gem 'thin'
-  gem 'therubyracer'
 
   group :postgresql do
     gem 'pg'
   end
 
   group :test, :development do
+    gem 'therubyracer'
     gem 'sqlite3'
   end
 end
