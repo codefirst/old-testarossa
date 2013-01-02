@@ -15,12 +15,15 @@ end
 platform :ruby do
   gem 'thin'
 
+  group :production do
+    gem 'therubyracer'
+  end
+
   group :postgresql do
     gem 'pg'
   end
 
   group :test, :development do
-    gem 'therubyracer'
     gem 'sqlite3'
   end
 end
