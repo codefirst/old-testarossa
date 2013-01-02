@@ -9,7 +9,8 @@ Developer
 running application
 
     $ bundle install --path .bundle --without postgresql
-    $ bundle install rails server
+    $ bundle exec rake db:migrate
+    $ bundle exec rails server
 
 test
 
