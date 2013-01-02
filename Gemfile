@@ -16,6 +16,7 @@ platform :ruby do
   gem 'thin'
 
   group :production do
+    gem 'libv8'
     gem 'therubyracer'
   end
 
