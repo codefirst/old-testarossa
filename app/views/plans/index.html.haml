@@ -1,10 +1,9 @@
-%h1 Listing plans
+%h1!= breadcrumb(@project.name, "Plans")
 
 %table
   %tr
-    %th Project
-    %th Startedat
-    %th Finishedat
+    %th StartedAt
+    %th FinishedAt
     %th Expect
     %th Actual
     %th Notes
@@ -14,7 +13,6 @@
 
   - @plans.each do |plan|
     %tr
-      %td= plan.project
       %td= plan.startedAt
       %td= plan.finishedAt
       %td= plan.expect
@@ -26,4 +24,4 @@
 
 %br
 
-= link_to 'New Plan', new_plan_path
+= link_to 'New Plan', new_plan_path(:project=>@project)

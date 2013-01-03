@@ -1,8 +1,10 @@
 class PlansController < ApplicationController
+  before_filter :with_project, :only => [ :index, :new, :create ]
+
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.all
+    @plans = @project.plans
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +27,7 @@ class PlansController < ApplicationController
   # GET /plans/new.json
   def new
     @plan = Plan.new
+    @plan.project = @project
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,6 +44,7 @@ class PlansController < ApplicationController
   # POST /plans.json
   def create
     @plan = Plan.new(params[:plan])
+    @plan.project = @project
 
     respond_to do |format|
       if @plan.save
@@ -79,5 +83,10 @@ class PlansController < ApplicationController
       format.html { redirect_to plans_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def with_project
+    @project = Project.find(params[:project])
   end
 end

@@ -24,7 +24,7 @@ describe PlansController do
   # Plan. As you add validations to Plan, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "project" => "" }
+    { :expect => 42, :startedAt => Date.today }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -34,17 +34,29 @@ describe PlansController do
     {}
   end
 
+  before do
+    @project = Project.create!(:name => "PlanControllerTest")
+  end
+
+  def create_plan
+    plan = Plan.create valid_attributes
+    plan.project = @project
+    plan.save!
+    plan
+  end
+
   describe "GET index" do
     it "assigns all plans as @plans" do
-      plan = Plan.create! valid_attributes
-      get :index, {}, valid_session
+      plan = create_plan
+
+      get :index, { :project => @project.id }, valid_session
       assigns(:plans).should eq([plan])
     end
   end
 
   describe "GET show" do
     it "assigns the requested plan as @plan" do
-      plan = Plan.create! valid_attributes
+      plan = create_plan
       get :show, {:id => plan.to_param}, valid_session
       assigns(:plan).should eq(plan)
     end
@@ -52,14 +64,14 @@ describe PlansController do
 
   describe "GET new" do
     it "assigns a new plan as @plan" do
-      get :new, {}, valid_session
+      get :new, { :project => @project.id }, valid_session
       assigns(:plan).should be_a_new(Plan)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested plan as @plan" do
-      plan = Plan.create! valid_attributes
+      plan = create_plan
       get :edit, {:id => plan.to_param}, valid_session
       assigns(:plan).should eq(plan)
     end
@@ -69,18 +81,18 @@ describe PlansController do
     describe "with valid params" do
       it "creates a new Plan" do
         expect {
-          post :create, {:plan => valid_attributes}, valid_session
+          post :create, {:plan => valid_attributes, :project => @project.id }, valid_session
         }.to change(Plan, :count).by(1)
       end
 
       it "assigns a newly created plan as @plan" do
-        post :create, {:plan => valid_attributes}, valid_session
+        post :create, {:plan => valid_attributes, :project => @project.id }, valid_session
         assigns(:plan).should be_a(Plan)
         assigns(:plan).should be_persisted
       end
 
       it "redirects to the created plan" do
-        post :create, {:plan => valid_attributes}, valid_session
+        post :create, {:plan => valid_attributes, :project => @project.id}, valid_session
         response.should redirect_to(Plan.last)
       end
     end
@@ -89,14 +101,14 @@ describe PlansController do
       it "assigns a newly created but unsaved plan as @plan" do
         # Trigger the behavior that occurs when invalid params are submitted
         Plan.any_instance.stub(:save).and_return(false)
-        post :create, {:plan => { "project" => "invalid value" }}, valid_session
+        post :create, {:plan => { "expect" => "" }, :project => @project.id }, valid_session
         assigns(:plan).should be_a_new(Plan)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Plan.any_instance.stub(:save).and_return(false)
-        post :create, {:plan => { "project" => "invalid value" }}, valid_session
+        post :create, {:plan => { "expect" => "" }, :project => @project.id }, valid_session
         response.should render_template("new")
       end
     end
@@ -105,23 +117,23 @@ describe PlansController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested plan" do
-        plan = Plan.create! valid_attributes
+        plan = create_plan
         # Assuming there are no other plans in the database, this
         # specifies that the Plan created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Plan.any_instance.should_receive(:update_attributes).with({ "project" => "" })
-        put :update, {:id => plan.to_param, :plan => { "project" => "" }}, valid_session
+        Plan.any_instance.should_receive(:update_attributes).with({ "actual" => "10" })
+        put :update, {:id => plan.to_param, :plan => { "actual" => "10" }}, valid_session
       end
 
       it "assigns the requested plan as @plan" do
-        plan = Plan.create! valid_attributes
+        plan = create_plan
         put :update, {:id => plan.to_param, :plan => valid_attributes}, valid_session
         assigns(:plan).should eq(plan)
       end
 
       it "redirects to the plan" do
-        plan = Plan.create! valid_attributes
+        plan = create_plan
         put :update, {:id => plan.to_param, :plan => valid_attributes}, valid_session
         response.should redirect_to(plan)
       end
@@ -129,18 +141,18 @@ describe PlansController do
 
     describe "with invalid params" do
       it "assigns the plan as @plan" do
-        plan = Plan.create! valid_attributes
+        plan = create_plan
         # Trigger the behavior that occurs when invalid params are submitted
         Plan.any_instance.stub(:save).and_return(false)
-        put :update, {:id => plan.to_param, :plan => { "project" => "invalid value" }}, valid_session
+        put :update, {:id => plan.to_param, :plan => { "expect" => "" }}, valid_session
         assigns(:plan).should eq(plan)
       end
 
       it "re-renders the 'edit' template" do
-        plan = Plan.create! valid_attributes
+        plan = create_plan
         # Trigger the behavior that occurs when invalid params are submitted
         Plan.any_instance.stub(:save).and_return(false)
-        put :update, {:id => plan.to_param, :plan => { "project" => "invalid value" }}, valid_session
+        put :update, {:id => plan.to_param, :plan => { "expect" => "" }}, valid_session
         response.should render_template("edit")
       end
     end
@@ -148,14 +160,14 @@ describe PlansController do
 
   describe "DELETE destroy" do
     it "destroys the requested plan" do
-      plan = Plan.create! valid_attributes
+      plan = create_plan
       expect {
         delete :destroy, {:id => plan.to_param}, valid_session
       }.to change(Plan, :count).by(-1)
     end
 
     it "redirects to the plans list" do
-      plan = Plan.create! valid_attributes
+      plan = create_plan
       delete :destroy, {:id => plan.to_param}, valid_session
       response.should redirect_to(plans_url)
     end

@@ -8,13 +8,14 @@
 
   .field
     = f.label :project
-    = f.text_field :project
+    = @plan.project.name
+    = hidden_field_tag :project, @plan.project.id
   .field
     = f.label :startedAt
-    = f.text_field :startedAt
+    = f.text_field :startedAt, :class => "date"
   .field
     = f.label :finishedAt
-    = f.text_field :finishedAt
+    = f.text_field :finishedAt, :class => "date"
   .field
     = f.label :expect
     = f.number_field :expect
@@ -26,3 +27,6 @@
     = f.text_area :notes
   .actions
     = f.submit 'Save'
+
+= content_for :javascript do
+  = javascript_include_tag "plans"
