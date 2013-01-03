@@ -4,6 +4,7 @@ gem 'rails', '3.2.9'
 
 gem 'json'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'haml-rails'
 
 group :assets do
