@@ -1,0 +1,29 @@
+%h1 Listing plans
+
+%table
+  %tr
+    %th Project
+    %th Startedat
+    %th Finishedat
+    %th Expect
+    %th Actual
+    %th Notes
+    %th
+    %th
+    %th
+
+  - @plans.each do |plan|
+    %tr
+      %td= plan.project
+      %td= plan.startedAt
+      %td= plan.finishedAt
+      %td= plan.expect
+      %td= plan.actual
+      %td= plan.notes
+      %td= link_to 'Show', plan
+      %td= link_to 'Edit', edit_plan_path(plan)
+      %td= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Plan', new_plan_path
