@@ -16,8 +16,7 @@ platform :ruby do
   gem 'thin'
 
   group :production do
-    gem 'libv8'
-    gem 'therubyracer'
+    gem 'therubyracer', '0.10.2'
   end
 
   group :postgresql do
