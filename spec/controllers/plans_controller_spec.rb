@@ -24,7 +24,7 @@ describe PlansController do
   # Plan. As you add validations to Plan, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { :expect => 42, :startedAt => Date.today }
+    { :expect => 42, :started_at => Date.today }
   end
 
   # This should return the minimal set of values that should be in the session

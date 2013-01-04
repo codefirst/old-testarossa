@@ -9,7 +9,7 @@ describe Plan do
     context "with valid parameters" do
       it do
         expect {
-          plan = Plan.create(:startedAt => Date.today, :expect => 10)
+          plan = Plan.create(:started_at => Date.today, :expect => 10)
           plan.project = @project
           plan.save!
         }.to_not raise_error
@@ -18,7 +18,7 @@ describe Plan do
 
     context "with invalid" do
       before do
-        @plan = Plan.create(:startedAt => Date.today, :expect => 10)
+        @plan = Plan.create(:started_at => Date.today, :expect => 10)
         @plan.project = @project
         @plan.save!
       end
@@ -39,9 +39,9 @@ describe Plan do
         end
       end
 
-      describe "startedAt" do
+      describe "started_at" do
         it do expect {
-          @plan.startedAt = "hoge"
+          @plan.started_at = "hoge"
           @plan.save!
         }.to raise_error
         end
@@ -51,7 +51,7 @@ describe Plan do
 
   context "after execution" do
     before do
-      @plan = Plan.create(:startedAt => Date.today, :expect => 10)
+      @plan = Plan.create(:started_at => Date.today, :expect => 10)
       @plan.project = @project
       @plan.save!
     end
@@ -59,7 +59,7 @@ describe Plan do
     context "with valid parameters" do
       it do expect {
         @plan.actual = 10
-        @plan.finishedAt = Date.today
+        @plan.finished_at = Date.today
         @plan.save!
       }.to_not raise_error
       end
@@ -74,13 +74,13 @@ describe Plan do
         end
       end
 
-      describe "finishedAt" do
+      describe "finished_at" do
         before do
-          @plan.finishedAt = "hoge"
+          @plan.finished_at = "hoge"
           @plan.save
         end
 
-        subject { @plan.finishedAt }
+        subject { @plan.finished_at }
         it { should be_nil }
       end
     end
