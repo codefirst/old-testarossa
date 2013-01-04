@@ -2,8 +2,8 @@ class CreatePlans < ActiveRecord::Migration
   def change
     create_table :plans do |t|
       t.references :project
-      t.datetime :startedAt
-      t.datetime :finishedAt
+      t.datetime :started_at
+      t.datetime :finished_at
       t.integer :expect
       t.integer :actual
       t.text :notes
