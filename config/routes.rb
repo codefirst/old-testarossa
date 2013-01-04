@@ -1,4 +1,7 @@
 Testarossa::Application.routes.draw do
+  resources :plans
+
+
   resources :projects
 
 

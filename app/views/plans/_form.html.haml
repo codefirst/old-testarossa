@@ -1,0 +1,32 @@
+= form_for @plan do |f|
+  - if @plan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@plan.errors.count, "error")} prohibited this plan from being saved:"
+      %ul
+        - @plan.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :project
+    = @plan.project.name
+    = hidden_field_tag :project, @plan.project.id
+  .field
+    = f.label :startedAt
+    = f.text_field :startedAt, :class => "date"
+  .field
+    = f.label :finishedAt
+    = f.text_field :finishedAt, :class => "date"
+  .field
+    = f.label :expect
+    = f.number_field :expect
+  .field
+    = f.label :actual
+    = f.number_field :actual
+  .field
+    = f.label :notes
+    = f.text_area :notes
+  .actions
+    = f.submit 'Save'
+
+= content_for :javascript do
+  = javascript_include_tag "plans"

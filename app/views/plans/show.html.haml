@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Project:
+  = @plan.project.name
+%p
+  %b Startedat:
+  = @plan.startedAt
+%p
+  %b Finishedat:
+  = @plan.finishedAt
+%p
+  %b Expect:
+  = @plan.expect
+%p
+  %b Actual:
+  = @plan.actual
+%p
+  %b Notes:
+  = @plan.notes
+
+= link_to 'Edit', edit_plan_path(@plan)
+\|
+= link_to 'Back', plans_path(:project => @plan.project)

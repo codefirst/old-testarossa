@@ -6,10 +6,12 @@
     %th
     %th
     %th
+    %th
 
   - @projects.each do |project|
     %tr
       %td= project.name
+      %td= link_to 'Show plans', plans_path(:project=>project)
       %td= link_to 'Show', project
       %td= link_to 'Edit', edit_project_path(project)
       %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
