@@ -52,6 +52,14 @@ describe PlansController do
       get :index, { :project => @project.id }, valid_session
       assigns(:plans).should eq([plan])
     end
+
+    describe "without project id" do
+      before do
+        get :index, {}, valid_session
+      end
+      subject { response }
+      its(:response_code) { should == 404 }
+    end
   end
 
   describe "GET show" do

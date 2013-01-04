@@ -1,5 +1,5 @@
 class PlansController < ApplicationController
-  before_filter :with_project, :only => [ :index, :new, :create ]
+  around_filter :with_project, :only => [ :index, :new, :create ]
 
   # GET /plans
   # GET /plans.json
@@ -87,6 +87,14 @@ class PlansController < ApplicationController
 
   private
   def with_project
-    @project = Project.find(params[:project])
+    @project = Project.find(params[:project]) rescue nil
+    if @project then
+      yield
+    else
+      respond_to do |format|
+        format.html { render :file => "public/404", :status => 404, :layout => false }
+        format.json { render :json => { "error" => "no project"}, :status => 404 }
+      end
+    end
   end
 end
