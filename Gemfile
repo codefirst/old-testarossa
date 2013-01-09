@@ -16,7 +16,7 @@ platform :ruby do
   gem 'thin'
 
   group :production do
-    gem 'therubyracer', '0.10.2'
+    gem 'therubyracer', '0.10.2', :platform => :ruby
   end
 
   group :postgresql do
