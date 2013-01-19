@@ -16,7 +16,7 @@ class PlansController < ApplicationController
   # GET /plans/1.json
   def show
     @plan = Plan.find(params[:id])
-
+    @project = @plan.project
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @plan }
@@ -38,6 +38,7 @@ class PlansController < ApplicationController
   # GET /plans/1/edit
   def edit
     @plan = Plan.find(params[:id])
+    @project = @plan.project
   end
 
   # POST /plans

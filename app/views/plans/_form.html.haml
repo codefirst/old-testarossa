@@ -1,30 +1,36 @@
-= form_for @plan do |f|
+= form_for @plan, :html => { :class => 'form-horizontal' } do |f|
   - if @plan.errors.any?
     #error_explanation
       %h2= "#{pluralize(@plan.errors.count, "error")} prohibited this plan from being saved:"
       %ul
         - @plan.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :project
-    = @plan.project.name
-    = hidden_field_tag :project, @plan.project.id
-  .field
-    = f.label :started_at
-    = f.text_field :started_at, :class => "date"
-  .field
-    = f.label :finished_at
-    = f.text_field :finished_at, :class => "date"
-  .field
-    = f.label :expect
-    = f.number_field :expect
-  .field
-    = f.label :actual
-    = f.number_field :actual
-  .field
-    = f.label :notes
-    = f.text_area :notes
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :project, :class => 'control-label'
+    .controls
+      = @plan.project.name
+      = hidden_field_tag :project, @plan.project.id
+  .control-group
+    = f.label :started_at, :class => 'control-label'
+    .controls
+      = f.text_field :started_at, :class => "date"
+  .control-group
+    = f.label :finished_at, :class => 'control-label'
+    .controls
+      = f.text_field :finished_at, :class => "date"
+  .control-group
+    = f.label :expect, :class => 'control-label'
+    .controls
+      = f.number_field :expect
+  .control-group
+    = f.label :actual, :class => 'control-label'
+    .controls
+      = f.number_field :actual
+  .control-group
+    = f.label :notes, :class => 'control-label'
+    .controls
+      = f.text_area :notes, :rows => 3, :class => 'span7'
+  .control-group
+    .actions.controls
+      = f.submit 'Save'
 

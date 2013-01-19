@@ -1,7 +1,8 @@
-%h1 Editing project
+- content_for :title do
+  ="Edit: #{@project.name}"
+
+%h1="Edit: #{@project.name}"
 
 = render 'form'
 
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+%p= link_to 'Back', projects_path

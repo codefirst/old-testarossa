@@ -7,6 +7,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'haml-rails'
 
+gem "less-rails"
+gem "twitter-bootstrap-rails"
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'uglifier', '>= 1.0.3'
@@ -14,10 +17,7 @@ end
 
 platform :ruby do
   gem 'thin'
-
-  group :production do
-    gem 'therubyracer', '0.10.2', :platform => :ruby
-  end
+  gem 'therubyracer', '0.10.2', :platform => :ruby
 
   group :postgresql do
     gem 'pg'
@@ -34,10 +34,7 @@ end
 
 platform :jruby do
   gem 'puma'
-
-  group :production do
-    gem 'therubyrhino'
-  end
+  gem 'therubyrhino'
 
   group :postgresql do
     gem 'activerecord-jdbcpostgresql-adapter'

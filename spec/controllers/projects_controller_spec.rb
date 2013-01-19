@@ -81,7 +81,7 @@ describe ProjectsController do
 
       it "redirects to the created project" do
         post :create, {:project => valid_attributes}, valid_session
-        response.should redirect_to(Project.last)
+        response.should redirect_to(projects_path)
       end
     end
 
@@ -123,7 +123,7 @@ describe ProjectsController do
       it "redirects to the project" do
         project = Project.create! valid_attributes
         put :update, {:id => project.to_param, :project => valid_attributes}, valid_session
-        response.should redirect_to(project)
+        response.should redirect_to(projects_url)
       end
     end
 
