@@ -1,21 +1,23 @@
-%h1 Listing projects
+- content_for :title do
+  Projects
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
-    %th
+%h1 Projects
+%p
+  <i class="icon-file"></i>
+  =link_to "New project", new_project_path
+- @projects.each do |project|
+  %section.project.well
+    %h2= link_to project.name, plans_path(:project=>project)
+    %div.actions
+      %span.plans
+        <i class="icon-list"></i>
+        =link_to 'Plans', plans_path(:project=>project)
+      %span.edit
+        <i class="icon-pencil"></i>
+        =link_to 'Edit', edit_project_path(project)
+      %span.delete
+        <i class="icon-remove"></i>
+        =link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
+    %div.description
+      %p="#{project.name} has #{project.plans.size} plans"
 
-  - @projects.each do |project|
-    %tr
-      %td= project.name
-      %td= link_to 'Show plans', plans_path(:project=>project)
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Project', new_project_path
