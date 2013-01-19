@@ -1,0 +1,11 @@
+- content_for :title do
+  = breadcrumb(@project.name, yield(:plan_title))
+
+- content_for :content do
+  %h1= link_to @project.name, plans_path(:project => @project)
+  %ul.nav.nav-tabs
+    %li=nav_to "Plans", plans_path(:project => @project)
+    %li=nav_to "New plan", new_plan_path(:project => @project)
+    %li=nav_to "Settings", edit_project_path(@project)
+  = yield
+= render :file => 'layouts/application'

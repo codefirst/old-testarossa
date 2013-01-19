@@ -1,27 +1,31 @@
-%h1!= breadcrumb(@project.name, "Plans")
+- content_for :plan_title do
+  Plans
 
-%table
-  %tr
-    %th StartedAt
-    %th FinishedAt
-    %th Expect
-    %th Actual
-    %th Notes
-    %th
-    %th
-    %th
-
-  - @plans.each do |plan|
+%table.table.table-striped
+  %thead
     %tr
-      %td= plan.started_at
-      %td= plan.finished_at
-      %td= plan.expect
-      %td= plan.actual
-      %td= plan.notes
-      %td= link_to 'Show', plan
-      %td= link_to 'Edit', edit_plan_path(plan)
-      %td= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' }
+      %th StartedAt
+      %th FinishedAt
+      %th Actual/Expect
+      %th Notes
+      %th
+  %tbody
+    - @plans.each do |plan|
+      %tr
+        %td= plan.started_at.to_date.to_formatted_s(:short)
+        %td= plan.finished_at.to_date.to_formatted_s(:short)
+        %td= "#{plan.actual || ' - '}/#{plan.expect}"
+        %td= plan.notes
+        %td
+          %span.show
+            <i class="icon-info-sign"></i>
+            = link_to 'Show', plan
+            %br
+          %span.edit
+            <i class="icon-pencil"></i>
+            = link_to 'Edit', edit_plan_path(plan)
+            %br
+          %span.destroy
+            <i class="icon-remove"></i>
+            = link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
-
-= link_to 'New Plan', new_plan_path(:project=>@project)

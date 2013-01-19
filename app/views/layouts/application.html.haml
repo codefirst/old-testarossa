@@ -25,7 +25,7 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") Testarossa
+          %a.brand(href="/") Testarossa
           .container.nav-collapse
             %ul.nav
               %li= link_to "Projects", projects_path
@@ -34,7 +34,7 @@
       .row-fluid
         .span12
           = bootstrap_flash
-          = yield
+          =  content_for?(:content) ? yield(:content) : yield
 
       %footer
         %p Copyright &copy; 2013 <a href="http://wwww.codefirst.org">codefirst.org</a>. All rights reserved.
